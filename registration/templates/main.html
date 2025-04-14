@@ -1,0 +1,22 @@
+<!-- registration/templates/main.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menards Team Member Register</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'js/scripts.js' %}" defer></script>
+</head>
+<body>
+    <div class="container">
+        <img src="{% static 'images/menards_logo.png' %}" alt="Menards Logo" class="logo">
+        <h1>Menards Team Member Register</h1>
+        <div class="buttons">
+            <button id="registerButton" data-url="{% url 'register' %}">Register</button>
+            <button id="exitButton">Exit</button>
+        </div>
+    </div>
+</body>
+</html>
