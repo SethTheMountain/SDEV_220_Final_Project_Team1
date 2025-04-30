@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Employee - Menards</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'js/scripts.js' %}" defer></script>
+</head>
+<body>
+    <div class="container">
+        <div id="displaySection">
+            <h2>New Employee Submitted</h2>
+            <p><strong>First Name:</strong> <span id="display_first_name"></span></p>
+            <p><strong>Last Name:</strong> <span id="display_last_name"></span></p>
+            <p><strong>Employee ID:</strong> <span id="display_employee_id"></span></p>
+            <p><strong>Address:</strong> <span id="display_address"></span></p>
+            <p><strong>Phone Number:</strong> <span id="display_phone_number"></span></p>
+            <p><strong>Position:</strong> <span id="display_position"></span></p>
+            <p><strong>Department:</strong> <span id="display_department"></span></p>
+            <p><strong>Hours per Week:</strong> <span id="display_hours_per_week"></span></p>
+            <p><strong>Hourly Salary:</strong> $<span id="display_hourly_salary"></span></p>
+            <div class="buttons">
+                <button type="button" onclick="addAnother()">Add Another Employee</button>
+                <button type="button" onclick="exitRegistration()">Exit</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

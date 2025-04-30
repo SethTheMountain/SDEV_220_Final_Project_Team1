@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menards Team Member Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=1.2">
+    <script src="{% static 'js/scripts.js' %}" defer></script>
+    <script>
+        // Safely render timezoneSet as a JavaScript boolean
+        window.timezoneSet = {{ timezone_set|yesno:"true,false"|default:"false"|safe }};
+        console.log("Debug: window.timezoneSet =", window.timezoneSet);
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="motto">
+            <p>Building Together, Growing Stronger.</p>
+        </div>
+        <img src="{% static 'images/menards_logo_new.png' %}" alt="Menards Team Member Registration Logo" class="logo">
+        <h1>Welcome to the Menards Team Portal</h1>
+        <p>Please click the button below to start your registration process.</p>
+        {% if messages %}
+            {% for message in messages %}
+                <p class="{% if message.tags == 'success' %}success{% else %}error{% endif %}">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        {% if user.is_authenticated and user.is_superuser %}
+            <div class="buttons">
+                <button id="registerButton" data-url="{% url 'register' %}" aria-label="Register a new employee">Register</button>
+                <button id="adminButton" data-url="{% url 'custom_admin' %}" aria-label="Go to Admin Dashboard">Admin Dashboard</button>
+                <button data-url="{% url 'logout' %}" aria-label="Logout from the admin account">Logout</button>
+            </div>
+        {% else %}
+            <div class="buttons">
+                <button id="registerButton" data-url="{% url 'register' %}" aria-label="Register a new employee">Register</button>
+            </div>
+            <h2>Admin Login</h2>
+            <form method="POST" aria-label="Admin login form">
+                {% csrf_token %}
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required aria-required="true">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required aria-required="true">
+                <div class="buttons">
+                    <button type="submit" aria-label="Login to admin account">Login</button>
+                    <button type="button" data-url="{% url 'main' %}" aria-label="Cancel login and return to home">Cancel</button>
+                </div>
+            </form>
+        {% endif %}
+        <footer class="footer">
+            <hr>
+            <p>© 2025 Menards Team Project. All rights reserved.</p>
+            <p>For assistance, contact <a href="mailto:support@menards.com">support@menards.com</a></p>
+        </footer>
+    </div>
+</body>
+</html>

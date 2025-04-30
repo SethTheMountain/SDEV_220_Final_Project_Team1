@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Registration - Menards</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'js/scripts.js' %}" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Registration</h1>
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            <label for="firstName">First Name:</label><br>
+            <input type="text" id="firstName" name="firstName" required><br><br>
+
+            <label for="lastName">Last Name:</label><br>
+            <input type="text" id="lastName" name="lastName" required><br><br>
+
+            <label for="employeeID">Employee ID:</label><br>
+            <input type="text" id="employeeID" name="employeeID" required><br><br>
+
+            <label for="address">Address:</label><br>
+            <textarea id="address" name="address" rows="2" required></textarea><br><br>
+
+            <label for="phone">Phone Number:</label><br>
+            <input type="tel" id="phone" name="phone" placeholder="111-111-1111" pattern="\d{3}-\d{3}-\d{4}" required><br><br>
+
+            <label for="department">Department:</label><br>
+            <select id="department" name="department" required>
+                <option value="" disabled selected>Select Department</option>
+                <option value="Electrical">Electrical</option>
+                <option value="Plumbing">Plumbing</option>
+                <option value="Front-Desk">Front-Desk</option>
+                <option value="Wall Coverings">Wall Coverings</option>
+                <option value="Flooring">Flooring</option>
+                <option value="Hardware">Hardware</option>
+                <option value="Receiving">Receiving</option>
+                <option value="Building Materials">Building Materials</option>
+            </select><br><br>
+
+            <label for="position">Position:</label><br>
+            <select id="position" name="position" required>
+                <option value="" disabled selected>Select Position</option>
+            </select><br><br>
+
+            <label for="hours">Hours per Week:</label><br>
+            <input type="number" id="hours" name="hours" min="0" step="0.1" required><br><br>
+
+            <label for="salary">Hourly Salary ($):</label><br>
+            <input type="number" id="salary" name="salary" step="0.01" min="0" required><br><br>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+        const departmentSelect = document.getElementById('department');
+        const positionSelect = document.getElementById('position');
+
+        const positionOptions = {
+            'Front-Desk': ['Cashier', 'Carry-Out', 'Assistant Manager', 'Department Manager', 'General Manager'],
+            'Receiving': ['Morning Stock', 'Lumber Yard Associate', 'Receiving Associate', 'Assistant Manager', 'Department Manager'],
+            'Electrical': ['Sales Associate', 'Assistant Manager', 'Department Manager'],
+            'Plumbing': ['Sales Associate', 'Assistant Manager', 'Department Manager'],
+            'Wall Coverings': ['Sales Associate', 'Assistant Manager', 'Department Manager'],
+            'Flooring': ['Sales Associate', 'Assistant Manager', 'Department Manager'],
+            'Hardware': ['Sales Associate', 'Assistant Manager', 'Department Manager'],
+            'Building Materials': ['Sales Associate', 'Assistant Manager', 'Department Manager']
+        };
+
+        departmentSelect.addEventListener('change', function() {
+            const selectedDepartment = this.value;
+            positionSelect.innerHTML = '<option value="" disabled selected>Select Position</option>';
+            
+            if (positionOptions[selectedDepartment]) {
+                positionOptions[selectedDepartment].forEach(position => {
+                    const option = document.createElement('option');
+                    option.value = position;
+                    option.textContent = position;
+                    positionSelect.appendChild(option);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
